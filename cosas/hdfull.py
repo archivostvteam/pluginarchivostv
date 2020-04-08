@@ -43,6 +43,42 @@ LogeadoDD = False
 
 cookiepath = RutaTMP
 
+def Crea_Archivo(nombreArchivo, nombreLista, nombreChanel, imagen, enlace, imgDefi, tipo, historial):
+
+    Categ = nombreArchivo
+    FF = open(Categ, 'w')
+    FF.write('<?xml version="1.0" encoding="iso-8859-1"?>\n<items>\n<playlist_name><![CDATA[' + NN + ']]></playlist_name>\n\n')
+    
+def CambiaTexto(texto):
+    NN = texto
+    NN = NN.replace("¡","")
+    NN = NN.replace("¿","")
+    NN = NN.replace("?","")
+    NN = NN.replace(":","")
+    NN = NN.replace("º","")
+    NN = NN.replace("ª","")
+    NN = NN.replace("\"","")
+    NN = NN.replace("\'","")
+    NN = NN.replace("(","")
+    NN = NN.replace(")","")
+    NN = NN.replace("á","a")
+    NN = NN.replace("Á","A")
+    NN = NN.replace("é","e")
+    NN = NN.replace("É","E")
+    NN = NN.replace("í","i")
+    NN = NN.replace("Í","I")
+    NN = NN.replace("ó","o")
+    NN = NN.replace("Ó","O")
+    NN = NN.replace("ú","u")
+    NN = NN.replace("Ú","U")
+    NN = NN.replace("ñ","n")
+    NN = NN.replace("Ñ","N")
+    NN = NN.replace("&ntilde;","n")
+    NN = NN.replace("&quot;","")
+    NN = NN.replace("'","")
+    NN = NN.replace("&#039;","")
+    return texto
+
 def load_cookies():
     if os.path.isfile(RUTACOOKIE):
         
@@ -140,32 +176,7 @@ def NavegarEstrenos(self, Nam, Pagina):
         global OTRO
         
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         PAG = Pagina
         PG = PAG
         
@@ -208,30 +219,7 @@ def NavegarEstrenos(self, Nam, Pagina):
                 else:
                     ENLA += "###" + ID + ";2"
                 NN = titulo
-                NN = NN.replace("¡","")
-                NN = NN.replace("¿","")
-                NN = NN.replace("?","")
-                NN = NN.replace(":","")
-                NN = NN.replace("º","")
-                NN = NN.replace("ª","")
-                NN = NN.replace("\"","")
-                NN = NN.replace("\'","")
-                NN = NN.replace("(","")
-                NN = NN.replace(")","")
-                NN = NN.replace("á","a")
-                NN = NN.replace("Á","A")
-                NN = NN.replace("é","e")
-                NN = NN.replace("É","E")
-                NN = NN.replace("í","i")
-                NN = NN.replace("Í","I")
-                NN = NN.replace("ó","o")
-                NN = NN.replace("Ó","O")
-                NN = NN.replace("ú","u")
-                NN = NN.replace("Ú","U")
-                NN = NN.replace("&ntilde;","n")
-                NN = NN.replace("&quot;","")
-                NN = NN.replace("'","")
-                NN = NN.replace("&#039;","")
+                NN = CambiaTexto(NN)
                 IMAG = imagen
                 
                 ImgDefinitiva = ObtenImagenes(self, IMAG)
@@ -282,32 +270,7 @@ def NavegarEstrenos(self, Nam, Pagina):
 def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
 
     NN = Nam
-    NN = NN.replace("¡","")
-    NN = NN.replace("¿","")
-    NN = NN.replace("?","")
-    NN = NN.replace(":","")
-    NN = NN.replace("º","")
-    NN = NN.replace("ª","")
-    NN = NN.replace("\"","")
-    NN = NN.replace("\'","")
-    NN = NN.replace("(","")
-    NN = NN.replace(")","")
-    NN = NN.replace("á","a")
-    NN = NN.replace("Á","A")
-    NN = NN.replace("é","e")
-    NN = NN.replace("É","E")
-    NN = NN.replace("í","i")
-    NN = NN.replace("Í","I")
-    NN = NN.replace("ó","o")
-    NN = NN.replace("Ó","O")
-    NN = NN.replace("ú","u")
-    NN = NN.replace("Ú","U")
-    NN = NN.replace("ñ","n")
-    NN = NN.replace("Ñ","N")
-    NN = NN.replace("&ntilde;","n")
-    NN = NN.replace("&quot;","")
-    NN = NN.replace("'","")
-    NN = NN.replace("&#039;","")
+    NN = CambiaTexto(NN)
     ENN = URLL
     IMG = THUMB
 
@@ -342,6 +305,10 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
 
     data_decrypt = jsontools.load(obfs(base64.b64decode(data_obf), 126 - int(key)))
     
+    print data_decrypt
+    print "####################################"
+    print "####################################"
+    
     FF = open(Categ, 'w')
     FF.write('<?xml version="1.0" encoding="iso-8859-1"?>\n<items>\n<playlist_name><![CDATA[' + NN + ']]></playlist_name>\n\n')
     
@@ -365,7 +332,7 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
                 if url.find('uptobox') != -1:
                     Conteo = Conteo + 1
                     FF.write("<channel>\n")
-                    FF.write("    <title><![CDATA[Ver en gamovideo " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
+                    FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
                     FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
                     FF.write('    <playlist_url><![CDATA[' + url + ']]></playlist_url>\n')
                     FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/pro/uptobox.txt]]></stream_url>\n')
@@ -380,7 +347,7 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
                 Conteo = Conteo + 1
                 if url.find('vidoza') != -1:
                     FF.write("<channel>\n")
-                    FF.write("    <title><![CDATA[Ver en vidoza " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
+                    FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
                     FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
                     FF.write('    <playlist_url><![CDATA[' + url + ']]></playlist_url>\n')
                     FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/pro/vidoza.txt]]></stream_url>\n')
@@ -392,7 +359,7 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
                     buscaID = re.findall(r'com/(.*)', url)
                     buscaID = buscaID[0]
                     FF.write("<channel>\n")
-                    FF.write("    <title><![CDATA[Ver en gamovideo " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
+                    FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
                     FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
                     FF.write('    <playlist_url><![CDATA[http://gamovideo.com/embed-' + buscaID + '-640x360.html]]></playlist_url>\n')
                     FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/props3/gamo.txt]]></stream_url>\n')
@@ -488,32 +455,7 @@ def NavegarSeries(self, Nam, Pagina):
         global OTRO
         
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         PAG = Pagina
         PG = PAG
         
@@ -556,32 +498,7 @@ def NavegarSeries(self, Nam, Pagina):
                 else:
                     ENLA += "###" + ID + ";2"
                 NN = titulo
-                NN = NN.replace("¡","")
-                NN = NN.replace("¿","")
-                NN = NN.replace("?","")
-                NN = NN.replace(":","")
-                NN = NN.replace("º","")
-                NN = NN.replace("ª","")
-                NN = NN.replace("\"","")
-                NN = NN.replace("\'","")
-                NN = NN.replace("(","")
-                NN = NN.replace(")","")
-                NN = NN.replace("á","a")
-                NN = NN.replace("Á","A")
-                NN = NN.replace("é","e")
-                NN = NN.replace("É","E")
-                NN = NN.replace("í","i")
-                NN = NN.replace("Í","I")
-                NN = NN.replace("ó","o")
-                NN = NN.replace("Ó","O")
-                NN = NN.replace("ú","u")
-                NN = NN.replace("Ú","U")
-                NN = NN.replace("ñ","n")
-                NN = NN.replace("Ñ","N")
-                NN = NN.replace("&ntilde;","n")
-                NN = NN.replace("&quot;","")
-                NN = NN.replace("'","")
-                NN = NN.replace("&#039;","")
+                NN = CambiaTexto(NN)
                 IMAG = imagen
                 
                 ImgDefinitiva = ObtenImagenes(self, IMAG)
@@ -614,32 +531,7 @@ def NavegarAZ(self, Nam, URLL = "", Pagina = "", historial = ""):
         global OTRO
         
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         
         Categ = RutaTMP + NN + "1.xml"
         
@@ -673,32 +565,7 @@ def NavegarAZ(self, Nam, URLL = "", Pagina = "", historial = ""):
                 else:
                     ENLA += "###" + ID + ";2"
                 NN = titulo
-                NN = NN.replace("¡","")
-                NN = NN.replace("¿","")
-                NN = NN.replace("?","")
-                NN = NN.replace(":","")
-                NN = NN.replace("º","")
-                NN = NN.replace("ª","")
-                NN = NN.replace("\"","")
-                NN = NN.replace("\'","")
-                NN = NN.replace("(","")
-                NN = NN.replace(")","")
-                NN = NN.replace("á","a")
-                NN = NN.replace("Á","A")
-                NN = NN.replace("é","e")
-                NN = NN.replace("É","E")
-                NN = NN.replace("í","i")
-                NN = NN.replace("Í","I")
-                NN = NN.replace("ó","o")
-                NN = NN.replace("Ó","O")
-                NN = NN.replace("ú","u")
-                NN = NN.replace("Ú","U")
-                NN = NN.replace("ñ","n")
-                NN = NN.replace("Ñ","N")
-                NN = NN.replace("&ntilde;","n")
-                NN = NN.replace("&quot;","")
-                NN = NN.replace("'","")
-                NN = NN.replace("&#039;","")
+                NN = CambiaTexto(NN)
                 IMAG = imagen
                 
                 ImgDefinitiva = ObtenImagenes(self, IMAG)
@@ -731,32 +598,7 @@ def Capitulos(self, Nam, URLL = "", THUMB = "", historial = "", temporada = ""):
         global OTRO
         
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         
         if "###" in URLL:
             idd = URLL.split("###")[1].split(";")[0]
@@ -828,32 +670,7 @@ def Temporadas(self, Nam, URLL = "", THUMB = "", historial = ""):
         global OTRO
         
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         
         if "###" in URLL:
             idd = URLL.split("###")[1].split(";")[0]
