@@ -16,6 +16,8 @@ import base64
 import urllib
 import urlparse
 from enigma import eTimer
+from ArchivostvModulos import Excepcion as Log
+from ArchivostvModulos import debug
 
 RUTAPLUGIN = "/usr/lib/enigma2/python/Plugins/Extensions/archivostv/"
 RUTACOOKIE = "/usr/lib/enigma2/python/Plugins/Extensions/archivostv/cosas/cookies.dat"
@@ -77,24 +79,36 @@ def CambiaTexto(texto):
     NN = NN.replace("&quot;","")
     NN = NN.replace("'","")
     NN = NN.replace("&#039;","")
-    return texto
+    NN = NN.replace('\xc3\xb1','n')
+    NN = NN.replace('\xc3\x81','A')
+    NN = NN.replace('\xc3\xa1','a')
+    NN = NN.replace('\xc3\x8d','I')
+    NN = NN.replace('\xc3\xad','i')
+    NN = NN.replace('\xc3\x89','E')
+    NN = NN.replace('\xc3\xa9','e')
+    NN = NN.replace('\xc3\x93','O')
+    NN = NN.replace('\xc3\xb3','o')
+    NN = NN.replace('\xc3\x9a','U')
+    NN = NN.replace('\xc3\xba','u')
+    return NN
 
 def load_cookies():
     if os.path.isfile(RUTACOOKIE):
         
         try:
-            print "Cargando cookies"
+            debug("Cargando cookies")
             cj.load(RUTACOOKIE, ignore_discard=True)
         except:
-            print "No cargamos cookies, error"
+            Log("No cargamos cookies, error", "Cookies de HDFULL")
             pass
     else:
-        print RUTACOOKIE
-        print "No existe el fichero de cookies megadede"
+        debug(RUTACOOKIE)
+        cj.save(RUTACOOKIE, ignore_discard=True)
+        debug("No existe el fichero de cookies megadede")
         
 def save_cookies():
     cj.save(RUTACOOKIE, ignore_discard=True)
-    print "Guardando las cookies"
+    debug("Guardando las cookies")
 
 def Version():
     V = 100
@@ -165,9 +179,7 @@ def Logear(self, usuario, contra):
         
         return XXX
     except Exception as er:
-        print "Error: "+ str(er) + " En Logear HDFULL"
-        print "Error: "+ str(er) + " En Logear HDFULL"
-        print "Error: "+ str(er) + " En Logear HDFULL"
+        Log(str(er), "En Logear HDFULL")
         return [1, er]
         
 def NavegarEstrenos(self, Nam, Pagina):
@@ -218,7 +230,7 @@ def NavegarEstrenos(self, Nam, Pagina):
                     ENLA += "###" + ID + ";1"
                 else:
                     ENLA += "###" + ID + ";2"
-                NN = titulo
+                NN = titulo.encode('utf8')
                 NN = CambiaTexto(NN)
                 IMAG = imagen
                 
@@ -262,9 +274,7 @@ def NavegarEstrenos(self, Nam, Pagina):
             return Categ
             
     except Exception as er:
-        print "Error: "+ str(er) + " En NavegarEstrenos HDFULL"
-        print "Error: "+ str(er) + " En NavegarEstrenos HDFULL"
-        print "Error: "+ str(er) + " En NavegarEstrenos HDFULL"
+        Log(str(er), "En NavegarEstrenos HDFULL")
         return [1, er]
         
 def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
@@ -304,10 +314,6 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
     data_obf = scrapertools.find_single_match(data, "var ad\s*=\s*'([^']+)'")
 
     data_decrypt = jsontools.load(obfs(base64.b64decode(data_obf), 126 - int(key)))
-    
-    print data_decrypt
-    print "####################################"
-    print "####################################"
     
     FF = open(Categ, 'w')
     FF.write('<?xml version="1.0" encoding="iso-8859-1"?>\n<items>\n<playlist_name><![CDATA[' + NN + ']]></playlist_name>\n\n')
@@ -353,7 +359,25 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
                     FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/pro/vidoza.txt]]></stream_url>\n')
                     FF.write('    <img_src><![CDATA[http://ps3plusteam.ddns.net/ps3plus/images/letras/vidoza.png]]></img_src>\n')
                     FF.write('    <tipo><![CDATA[hdfullLinks]]></tipo>\n')
-                    FF.write('</channel>\n\n')                
+                    FF.write('</channel>\n\n')        
+                if url.find('vidtodo') != -1:
+                    FF.write("<channel>\n")
+                    FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
+                    FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
+                    FF.write('    <playlist_url><![CDATA[' + url + ']]></playlist_url>\n')
+                    FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/pro/vidtodo.txt]]></stream_url>\n')
+                    FF.write('    <img_src><![CDATA[http://ps3plusteam.ddns.net/ps3plus/images/letras/vidtodo.png]]></img_src>\n')
+                    FF.write('    <tipo><![CDATA[hdfullLinks]]></tipo>\n')
+                    FF.write('</channel>\n\n')
+                if url.find('clipwatching') != -1:
+                    FF.write("<channel>\n")
+                    FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
+                    FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
+                    FF.write('    <playlist_url><![CDATA[' + url + ']]></playlist_url>\n')
+                    FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/pro/clipwatching.txt]]></stream_url>\n')
+                    FF.write('    <img_src><![CDATA[http://ps3plusteam.ddns.net/ps3plus/images/letras/clipwatching.png]]></img_src>\n')
+                    FF.write('    <tipo><![CDATA[hdfullLinks]]></tipo>\n')
+                    FF.write('</channel>\n\n')   
                 if url.find('gamovideo') != -1:
                     Conteo = Conteo + 1
                     buscaID = re.findall(r'com/(.*)', url)
@@ -520,9 +544,7 @@ def NavegarSeries(self, Nam, Pagina):
             return Categ
             
     except Exception as er:
-        print "Error: "+ str(er) + " En NavegarSeries HDFULL"
-        print "Error: "+ str(er) + " En NavegarSeries HDFULL"
-        print "Error: "+ str(er) + " En NavegarSeries HDFULL"
+        Log(str(er), "En NavegarSeries HDFULL")
         return [1, er]
         
 def NavegarAZ(self, Nam, URLL = "", Pagina = "", historial = ""):
@@ -587,9 +609,7 @@ def NavegarAZ(self, Nam, URLL = "", Pagina = "", historial = ""):
             return Categ
             
     except Exception as er:
-        print "Error: "+ str(er) + " En NavegarAZ HDFULL"
-        print "Error: "+ str(er) + " En NavegarAZ HDFULL"
-        print "Error: "+ str(er) + " En NavegarAZ HDFULL"
+        Log(str(er), "En NavegarAZ HDFULL")
         return [1, er]
         
 def Capitulos(self, Nam, URLL = "", THUMB = "", historial = "", temporada = ""):
@@ -624,21 +644,15 @@ def Capitulos(self, Nam, URLL = "", THUMB = "", historial = "", temporada = ""):
             language = episode['languages']
             tempo = episode['season']
             episodio = episode['episode']
-            if episode['title']['es'] == "":
-                titulo = ""
-            else:
+            if "es" in episode['title']:
                 titulo = str(episode['title']['es'].decode('utf8'))
-            titulo = titulo.replace('\xc3\xb1','n')
-            titulo = titulo.replace('\xc3\x81','A')
-            titulo = titulo.replace('\xc3\xa1','a')
-            titulo = titulo.replace('\xc3\x8d','I')
-            titulo = titulo.replace('\xc3\xad','i')
-            titulo = titulo.replace('\xc3\x89','E')
-            titulo = titulo.replace('\xc3\xa9','e')
-            titulo = titulo.replace('\xc3\x93','O')
-            titulo = titulo.replace('\xc3\xb3','o')
-            titulo = titulo.replace('\xc3\x9a','U')
-            titulo = titulo.replace('\xc3\xba','u')
+            elif "en" in episode['title']:
+                titulo = str(episode['title']['en'].decode('utf8'))
+            else:
+                titulo = ""
+                
+            titulo = CambiaTexto(titulo)
+            
             if episodio == "1":
                 FF.write('<?xml version="1.0" encoding="iso-8859-1"?>\n<items>\n<playlist_name><![CDATA[' + titulo + ']]></playlist_name>\n\n')
             
@@ -659,9 +673,7 @@ def Capitulos(self, Nam, URLL = "", THUMB = "", historial = "", temporada = ""):
 
             
     except Exception as er:
-        print "Error: "+ str(er) + " En Capitulos HDFULL"
-        print "Error: "+ str(er) + " En Capitulos HDFULL"
-        print "Error: "+ str(er) + " En Capitulos HDFULL"
+        Log(str(er), "En Capitulos HDFULL")
         return [1, er]
         
 def Temporadas(self, Nam, URLL = "", THUMB = "", historial = ""):
@@ -723,7 +735,5 @@ def Temporadas(self, Nam, URLL = "", THUMB = "", historial = ""):
             return Categ
             
     except Exception as er:
-        print "Error: "+ str(er) + " En Temporadas HDFULL"
-        print "Error: "+ str(er) + " En Temporadas HDFULL"
-        print "Error: "+ str(er) + " En Temporadas HDFULL"
+        Log(str(er), "En Temporadas HDFULL")
         return [1, er]
