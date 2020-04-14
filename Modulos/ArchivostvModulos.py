@@ -1,4 +1,5 @@
 # Embedded file name: /usr/lib/enigma2/python/Plugins/Extensions/archivostv/Modulos/ArchivostvModulos.py
+# coding: utf-8
 from xml.etree.cElementTree import fromstring, ElementTree
 import urllib2
 import urllib as ul
