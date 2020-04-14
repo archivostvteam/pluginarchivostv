@@ -84,6 +84,14 @@ def CambiaTexto(texto):
     NN = NN.replace("&amp;","y")
     NN = NN.replace("&ntilde;","n")
     NN = NN.replace("&quot;","")
+    NN = NN.replace("&aacute;","a")
+    NN = NN.replace("&eacute;","e")
+    NN = NN.replace("&iacute;","i")
+    NN = NN.replace("&oacute;","o")
+    NN = NN.replace("&uacute;","u")
+    NN = NN.replace("&laquo;","")
+    NN = NN.replace("&raquo;","")
+    NN = NN.replace("</p>","")
     NN = NN.replace("'","")
     NN = NN.replace("&#039;","")
     NN = NN.replace('\xc3\xb1','n')
@@ -394,6 +402,13 @@ def Enlaces(self, Nam, URLL, THUMB, historial):
         data = Abrir.read()
         Abrir.close()
         
+        if ENN.find('peli') != -1:
+            SINOP = re.findall(r'themoviedb\.png\">.+ref=\"(.*?)"', data)
+            SINOP = SacaSinopsis("Pelicula", SINOP[0])
+            SINOP = CambiaTexto(SINOP)
+        else:
+            SINOP = ""
+        
         Buscabtnenlaces = ""
         
         if IMG.find('peli') != -1:
@@ -442,7 +457,7 @@ def Enlaces(self, Nam, URLL, THUMB, historial):
             
                 FF.write("<channel>\n")
                 FF.write("    <title><![CDATA[Ver en " + idioma.encode('utf8') + " " + calidad + "]]></title>\n")
-                FF.write('    <description><![CDATA[<img src="' + imag.encode("utf8") + '">]]></description>\n')
+                FF.write('    <description><![CDATA[<img src="' + imag.encode("utf8") + '">]]>' + SINOP + '</description>\n')
                 FF.write('    <playlist_url><![CDATA[' + Enlace + ']]></playlist_url>\n')
             
                 if imag.find("vidoza") != -1:
@@ -480,9 +495,9 @@ def Enlaces(self, Nam, URLL, THUMB, historial):
         return Categ
         
     except Exception as er:
-        print "Error: "+ str(er) + " En Enlaces"
-        print "Error: "+ str(er) + " En Enlaces"
-        print "Error: "+ str(er) + " En Enlaces"
+        print "Error: "+ str(er) + " En Enlaces MEGADEDE"
+        print "Error: "+ str(er) + " En Enlaces MEGADEDE"
+        print "Error: "+ str(er) + " En Enlaces MEGADEDE"
         return [1, er]
     
 def Capitulos(self, Nam, URLL, THUMB, historial):
@@ -504,6 +519,10 @@ def Capitulos(self, Nam, URLL, THUMB, historial):
         data = Abrir.read()
         Abrir.close()
         
+        SINOP = re.findall(r'thetvdb\.png\">.+ref=\"(.*?)"', data)
+        SINOP = SacaSinopsis("Serie", SINOP[0])
+        SINOP = CambiaTexto(SINOP)
+        
         FF = open(Categ, 'w')
         FF.write('<?xml version="1.0" encoding="iso-8859-1"?>\n<items>\n<playlist_name><![CDATA[' + NN + ']]></playlist_name>\n\n')
         
@@ -520,7 +539,7 @@ def Capitulos(self, Nam, URLL, THUMB, historial):
                 for enlace,episodio,nombre in BuscaTodo:
                     FF.write("<channel>\n")
                     FF.write("    <title><![CDATA[" + cuantas + "x" + episodio +"- " + nombre + "]]></title>\n")
-                    FF.write('    <description><![CDATA[' + str(IMG[1]) + ']]></description>\n')
+                    FF.write('    <description><![CDATA[' + str(IMG[1]) + ']]>' + SINOP + '</description>\n')
                     FF.write('    <playlist_url><![CDATA[https://www.megadede.com' + enlace + ']]></playlist_url>\n')
                     FF.write('    <img_src><![CDATA[' + str(IMG[0]) + ']]></img_src>\n')
                     FF.write('    <tipo><![CDATA[megadedeEnlaces]]></tipo>\n')
@@ -539,7 +558,7 @@ def Capitulos(self, Nam, URLL, THUMB, historial):
                 for enlace,episodio,nombre in BuscaTodo:
                     FF.write("<channel>\n")
                     FF.write("    <title><![CDATA[" + cuantas + "x" + episodio +"- " + nombre + "]]></title>\n")
-                    FF.write('    <description><![CDATA[' + str(IMG[1]) + ']]></description>\n')
+                    FF.write('    <description><![CDATA[' + str(IMG[1]) + ']]>' + SINOP + '</description>\n')
                     FF.write('    <playlist_url><![CDATA[https://www.megadede.com' + enlace + ']]></playlist_url>\n')
                     FF.write('    <img_src><![CDATA[' + str(IMG[0]) + ']]></img_src>\n')
                     FF.write('    <tipo><![CDATA[megadedeEnlaces]]></tipo>\n')
@@ -1037,6 +1056,34 @@ def Buscar(self, Nombre, Tipo):
         print "Error megadede en Busca: " + str(er)
         print "Error megadede en Busca: " + str(er)
         return [1, er]
+        
+def SacaSinopsis(tipo, enlace):
+    try:
+        if tipo == "Pelicula":
+            enn = enlace + "?language=es-ES"
+            req = urllib2.Request(enn)
+            req.add_header('User-Agent',user_agent_default)
+            Abrir = OP(req, timeout=8)
+            data = Abrir.read()
+            Abrir.close()
+            
+            BuscaSinopsis = re.findall(r'og:description"\s+content="(.*?)">', data)
+            
+            return BuscaSinopsis[0]
+        else:
+            enn = enlace
+            req = urllib2.Request(enn)
+            req.add_header('User-Agent',user_agent_default)
+            Abrir = OP(req, timeout=8)
+            data = Abrir.read()
+            Abrir.close()
+            
+            BuscaSinopsis = re.findall(r'data-language="spa"\s+.+\s+.+\s+.\s+<p>(.*)', data)
+            
+            return BuscaSinopsis[0]
+    except Exception as er:
+        return "No hay descripcion"
+    
         
 def ObtenImagenes(self, enlace):
     try:

@@ -270,6 +270,17 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
         provs[provider]=[e,l]
 
     data = agrupa_datos(ENN)
+    
+    Sinop = ""
+    
+    if ENN.find("pelicula") != -1:
+        buscaSinopsis = re.findall(r'itemprop="description">(.*?)<br', data)
+        Sinop = CambiaTexto(buscaSinopsis[0])
+        
+    if ENN.find("serie/") != -1:
+        buscaSinopsis = re.findall(r'itemprop="description">(.*?)<br', data)
+        Sinop = CambiaTexto(buscaSinopsis[0])
+    
     data_obf = scrapertools.find_single_match(data, "var ad\s*=\s*'([^']+)'")
 
     data_decrypt = jsontools.load(obfs(base64.b64decode(data_obf), 126 - int(key)))
@@ -298,7 +309,7 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
                     Conteo = Conteo + 1
                     FF.write("<channel>\n")
                     FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
-                    FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
+                    FF.write('    <description><![CDATA[' + IMG + ']]>' + Sinop + '</description>\n')
                     FF.write('    <playlist_url><![CDATA[' + url + ']]></playlist_url>\n')
                     FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/pro/uptobox.txt]]></stream_url>\n')
                     FF.write('    <img_src><![CDATA[http://ps3plusteam.ddns.net/ps3plus/images/letras/uptobox.png]]></img_src>\n')
@@ -313,7 +324,7 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
                 if url.find('vidoza') != -1:
                     FF.write("<channel>\n")
                     FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
-                    FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
+                    FF.write('    <description><![CDATA[' + IMG + ']]>' + Sinop + '</description>\n')
                     FF.write('    <playlist_url><![CDATA[' + url + ']]></playlist_url>\n')
                     FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/pro/vidoza.txt]]></stream_url>\n')
                     FF.write('    <img_src><![CDATA[http://ps3plusteam.ddns.net/ps3plus/images/letras/vidoza.png]]></img_src>\n')
@@ -322,7 +333,7 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
                 if url.find('vidtodo') != -1:
                     FF.write("<channel>\n")
                     FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
-                    FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
+                    FF.write('    <description><![CDATA[' + IMG + ']]>' + Sinop + '</description>\n')
                     FF.write('    <playlist_url><![CDATA[' + url + ']]></playlist_url>\n')
                     FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/pro/vidtodo.txt]]></stream_url>\n')
                     FF.write('    <img_src><![CDATA[http://ps3plusteam.ddns.net/ps3plus/images/letras/vidtodo.png]]></img_src>\n')
@@ -331,7 +342,7 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
                 if url.find('clipwatching') != -1:
                     FF.write("<channel>\n")
                     FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
-                    FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
+                    FF.write('    <description><![CDATA[' + IMG + ']]>' + Sinop + '</description>\n')
                     FF.write('    <playlist_url><![CDATA[' + url + ']]></playlist_url>\n')
                     FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/pro/clipwatching.txt]]></stream_url>\n')
                     FF.write('    <img_src><![CDATA[http://ps3plusteam.ddns.net/ps3plus/images/letras/clipwatching.png]]></img_src>\n')
@@ -343,7 +354,7 @@ def Enlaces(self, Nam, URLL = "", THUMB = "", historial = ""):
                     buscaID = buscaID[0]
                     FF.write("<channel>\n")
                     FF.write("    <title><![CDATA[Ver en " + idioma + " " + NN.encode('utf8') + " " + calidad + "]]></title>\n")
-                    FF.write('    <description><![CDATA[' + IMG + ']]></description>\n')
+                    FF.write('    <description><![CDATA[' + IMG + ']]>' + Sinop + '</description>\n')
                     FF.write('    <playlist_url><![CDATA[http://gamovideo.com/embed-' + buscaID + '-640x360.html]]></playlist_url>\n')
                     FF.write('    <stream_url><![CDATA[http://ps3plusteam.ddns.net/teamps3plus/props3/gamo.txt]]></stream_url>\n')
                     FF.write('    <img_src><![CDATA[http://ps3plusteam.ddns.net/ps3plus/images/letras/gamovideo.png]]></img_src>\n')
@@ -651,12 +662,10 @@ def Temporadas(self, Nam, URLL = "", THUMB = "", historial = ""):
         Categ = RutaTMP + NN + "1.xml"
         
         url = URLL
-        req = urllib2.Request(url)
-        req.add_header('User-Agent',user_agent_default)
-        req.add_header('Referer','https://hdfull.io/')
-        Abrir = OP(req)
-        data = Abrir.read()
-        Abrir.close()
+        data = agrupa_datos(url)
+        
+        buscaSinopsis = re.findall(r'itemprop="description">(.*?)<br', data)
+        Sinop = CambiaTexto(buscaSinopsis[0])
         
         INDINI = data.find('Todas las temporadas')
         INDFIN = data.find('<div class="breakaway-wrapper-alt">')
@@ -680,7 +689,7 @@ def Temporadas(self, Nam, URLL = "", THUMB = "", historial = ""):
                     ENLA += "###" + idd + ";1"
                     FF.write("<channel>\n")
                     FF.write("    <title><![CDATA[Temporada " + temporada + "]]></title>\n")
-                    FF.write('    <description><![CDATA[<img src="' + THUMB + '">]]></description>\n')
+                    FF.write('    <description><![CDATA[<img src="' + THUMB + '">]]>' + Sinop + '</description>\n')
                     FF.write('    <playlist_url><![CDATA[' + ENLA + ']]></playlist_url>\n')
                     FF.write('    <img_src><![CDATA[' + THUMB + ']]></img_src>\n')
                     FF.write('    <tipo><![CDATA[hdfullCapitulos]]></tipo>\n')
