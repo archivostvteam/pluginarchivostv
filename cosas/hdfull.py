@@ -158,7 +158,7 @@ def NavegarEstrenos(self, Nam, Pagina):
         
         req = urllib2.Request(url)
         req.add_header('User-Agent',user_agent_default)
-        req.add_header('Referer','https://www.megadede.com/pelis')
+        req.add_header('Referer','https://hdfull.io/')
         Abrir = OP(req)
         data = Abrir.read()
         Abrir.close()
@@ -704,4 +704,161 @@ def Temporadas(self, Nam, URLL = "", THUMB = "", historial = ""):
             
     except Exception as er:
         Log(str(er), "En Temporadas HDFULL")
+        return [1, er]
+        
+def Buscar(self, Nombre, Tipo):
+    try:
+        OPT = Tipo
+        Categ = RutaTMP + Nombre + ".xml"
+        Name = Nombre
+        Name = Name.replace("/","")
+        Name = Name.replace(":","")
+        Name = Name.replace("á","a")
+        Name = Name.replace("é","e")
+        Name = Name.replace("í","i")
+        Name = Name.replace("ó","o")
+        Name = Name.replace("ú","u")
+        Name = Name.replace("Á","A")
+        Name = Name.replace("É","E")
+        Name = Name.replace("Í","I")
+        Name = Name.replace("Ó","O")
+        Name = Name.replace("Ú","U")
+        Name = Name.replace("&#039;","'")
+        Name = Name.replace("&#39;","'")
+        Name = Name.replace(" ", "+")
+        
+        url_origen = 'https://hdfull.io/'
+        req = urllib2.Request(url_origen)
+        req.add_header('User-Agent', user_agent_default)
+        Abrir = OP(req, timeout=20)
+        data = Abrir.read()
+        Abrir.close()
+        
+        GetName = re.findall(r'buscar.+name=\'(.*?)\'\s+value=', data)
+        GetToken = re.findall(r'buscar.+value="(.*?)"', data)
+        
+        NameToken = GetName[0]
+        Token = GetToken[0]
+        
+        if OPT == 0: # Pelis
+            url = 'https://hdfull.io/buscar'
+            post = str(NameToken) + '=' + str(Token) + "&menu=search&query=" + Name
+            req = urllib2.Request(url)
+            req.add_header('User-Agent', user_agent_default)
+            req.add_header('Referer', 'https://hdfull.io/')
+            Abrir = OP(req, data=post)
+            data = Abrir.read()
+            Abrir.close()
+            
+            INDINI = data.find('Resultados en pel')
+            INDFIN = data.find('<div id="avatar_form" class="modal" style="display:none">')
+            
+            data = data[INDINI:INDFIN]
+            
+            Recopila = re.findall(r'href="(.*?)".+\s+.+src="(.*?)"\s.+title="(.*?)"\sst', data)
+            IDS = re.findall(r'setFavorite\(\d+, (.*?), \d', data)
+            
+            Conteo = 0
+            
+            if Recopila == []:
+                Mensaje = "Error","No hay mas resultados aqui."
+                FF.close()
+                return [1, Mensaje]
+                
+            FF = open(Categ, 'w')
+            FF.write('<?xml version="1.0" encoding="iso-8859-1"?>\n<items>\n<playlist_name><![CDATA[Buscando ' + Nombre + ']]></playlist_name>\n\n')
+            
+            for enlace,imagen,titulo in Recopila:
+                ID = IDS[Conteo]
+                IMAG = imagen
+                IMAG = IMAG.replace("130", "260")
+                IMAG = IMAG.replace("190", "380")
+                Conteo = Conteo + 1
+                EN = enlace
+                if '/serie' in EN or "/tags-tv" in EN:
+                    EN += "###" + ID + ";1"
+                else:
+                    EN += "###" + ID + ";2"
+                TI = titulo
+                ImgDefinitiva = ObtenImagenes(self, IMAG)
+
+                FF.write("<channel>\n")
+                FF.write("    <title><![CDATA[" + TI.encode('utf8') + "]]></title>\n")
+                FF.write('    <description><![CDATA[<img src="' + IMAG + '">]]></description>\n')
+                FF.write('    <playlist_url><![CDATA[' + EN + ']]></playlist_url>\n')
+                FF.write('    <img_src><![CDATA[' + ImgDefinitiva + ']]></img_src>\n')
+                FF.write('    <tipo><![CDATA[hdfullEnlaces]]></tipo>\n')
+                FF.write('    <historial><![CDATA[' + Categ + ']]></historial>\n')
+                FF.write('</channel>\n\n')
+
+            FF.write('<prev_page_url text="CH- ATRAS"><![CDATA[/cosas/hdfull.xml]]></prev_page_url>\n</items>')
+            FF.close()
+                
+            return Categ
+            
+        elif OPT == 1: # Series
+            url = 'https://hdfull.io/buscar'
+            post = str(NameToken) + '=' + str(Token) + "&menu=search&query=" + Name
+            req = urllib2.Request(url)
+            req.add_header('User-Agent', user_agent_default)
+            req.add_header('Referer', 'https://hdfull.io/')
+            Abrir = OP(req, data=post)
+            data = Abrir.read()
+            Abrir.close()
+            
+            INDINI = data.find('Resultados en series para')
+            if data.find('Resultados en pel') != -1:
+                INDFIN = data.find('Resultados en pel')
+            else:
+                INDFIN = data.find('<div id="avatar_form" class="modal" style="display:none">')
+            
+            data = data[INDINI:INDFIN]
+            
+            Recopila = re.findall(r'"link" href="(.*?)" title="(.*?)">', data)
+            Imagenes = re.findall(r'src="(.*?)"\salt=" ', data)
+            IDS = re.findall(r'setFavorite\(\d+, (.*?), \d', data)
+            
+            Conteo = 0
+            
+            if Recopila == []:
+                Mensaje = "Error","No hay mas resultados aqui."
+                FF.close()
+                return [1, Mensaje]
+                
+            FF = open(Categ, 'w')
+            FF.write('<?xml version="1.0" encoding="iso-8859-1"?>\n<items>\n<playlist_name><![CDATA[Buscando ' + Nombre + ']]></playlist_name>\n\n')
+            
+            for enlace,titulo in Recopila:
+                ID = IDS[Conteo]
+                IMAG = Imagenes[Conteo]
+                IMAG = IMAG.replace("130", "260")
+                IMAG = IMAG.replace("190", "380")
+                Conteo = Conteo + 1
+                EN = enlace
+                if '/serie' in EN or "/tags-tv" in EN:
+                    EN += "###" + ID + ";1"
+                else:
+                    EN += "###" + ID + ";2"
+                TI = titulo
+                ImgDefinitiva = ObtenImagenes(self, IMAG)
+
+                FF.write("<channel>\n")
+                FF.write("    <title><![CDATA[" + TI.encode('utf8') + "]]></title>\n")
+                FF.write('    <description><![CDATA[<img src="' + IMAG + '">]]></description>\n')
+                FF.write('    <playlist_url><![CDATA[' + EN + ']]></playlist_url>\n')
+                FF.write('    <img_src><![CDATA[' + ImgDefinitiva + ']]></img_src>\n')
+                FF.write('    <tipo><![CDATA[hdfullCapitulos]]></tipo>\n')
+                FF.write('    <historial><![CDATA[' + Categ + ']]></historial>\n')
+                FF.write('</channel>\n\n')
+
+            FF.write('<prev_page_url text="CH- ATRAS"><![CDATA[/cosas/hdfull.xml]]></prev_page_url>\n</items>')
+            FF.close()
+                
+            return Categ
+            
+        else:
+            pass
+    except Exception as er:
+        print "Error HDFULL en Busca: " + str(er)
+        print "Error HDFULL en Busca: " + str(er)
         return [1, er]

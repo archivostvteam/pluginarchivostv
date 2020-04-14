@@ -2,7 +2,7 @@
 <items>
 <playlist_name><![CDATA[HDFULL]]></playlist_name>
 
-<!--
+
 <channel>       
 <title><![CDATA[Buscar]]></title>
 <logo_30x30></logo_30x30>
@@ -12,7 +12,6 @@
 <ts_stream><![CDATA[0]]></ts_stream>
 <tipo><![CDATA[hdfullBusca]]></tipo>
 </channel>
--->
 
 <channel>       
 <title><![CDATA[Navegar en Estrenos]]></title>
