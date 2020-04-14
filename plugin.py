@@ -67,7 +67,7 @@ Servidor = 0
 logeadoplusdede = 0
 logeoplusdede = 0
 CarpetaTMP = "/tmp/archivostv/"
-VersionActual = 108
+VersionActual = 109
 usuariopor = "florin2016"
 contrasenapor = "florin2016"
 user_agent_default = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
@@ -315,7 +315,7 @@ class iptv_streamse():
                 for channel in xml.findall('channel'):
                     chan_counter = chan_counter + 1
                     name = channel.findtext('title').encode('utf-8')
-                    print name
+                    print name.encode('utf8')
                     tipo = "playlist"
                     if channel.findtext('tipo'):
                         tipo = channel.findtext('tipo').encode('utf-8')
@@ -1546,11 +1546,10 @@ class artvPlaylist(Screen):
                         pass
                         
                 except Exception as er:
-                    print "Error: " + str(er) + " en CompruebaLogin PLUGIN"
-                    print "Error: " + str(er) + " en CompruebaLogin PLUGIN"
+                    Log(str(er), "en CompruebaLogin plugin Megadede")
                     logeadoplusdede = 0
                     logeoplusdede = 0
-                    self.session.open(MessageBox,_("El login a PLUSDEDE a fallado por:\n\n" + str(er)) + "\n\n Intentalo de nuevo entrando en la seccion otra vez.", MessageBox.TYPE_INFO, timeout=8)
+                    self.session.open(MessageBox,_("El login a MEGADEDE a fallado por:\n\n" + str(er)) + "\n\n Intentalo de nuevo entrando en la seccion otra vez.", MessageBox.TYPE_INFO, timeout=8)
                     
                 if logeadoplusdede == 0 and logeoplusdede == 1:
                     logeadoplusdede = 1
@@ -1577,7 +1576,6 @@ class artvPlaylist(Screen):
                             
                         logeadoplusdede = 1
                         logeoplusdede = 1
-
                         return
                 
                 if tipo.find('megadedeLinks') != -1:
@@ -1714,11 +1712,27 @@ class artvPlaylist(Screen):
                         
                     return
                     
+                if tipo.find('hdfullCapitulos') != -1:
+                    if playlist_url.find('temporada') != -1:
+                        from hdfull import Capitulos
+                        tempo = re.findall(r'temporada-(\d+)', playlist_url)
+                        LanzaAZ = Capitulos(self, selected_channel[1], selected_channel[5], selected_channel[7], historial, tempo[0])
+                        STREAMS.get_list(LanzaAZ)
+                        self.update_channellist()
+                        return
+                    else:
+                        from hdfull import Temporadas
+                        LanzaAZ = Temporadas(self, selected_channel[1], selected_channel[5], selected_channel[7], historial)
+                        STREAMS.get_list(LanzaAZ)
+                        self.update_channellist()
+                        return
+
+                    
                 if tipo.find('hdfullAZ') != -1:
                     from hdfull import NavegarAZ
                     
-                    LanzaEstrenos = NavegarAZ(self, selected_channel[1], selected_channel[10])
-                    STREAMS.get_list(LanzaEstrenos)
+                    LanzaAZ = NavegarAZ(self, selected_channel[1], selected_channel[5], selected_channel[10], historial)
+                    STREAMS.get_list(LanzaAZ)
                     self.update_channellist()
                     return
                 
@@ -1738,7 +1752,7 @@ class artvPlaylist(Screen):
                         LanzaEnlaces = Enlaces(self, selected_channel[1], selected_channel[5], selected_channel[8], historial)
                         
                         if LanzaEnlaces == None:
-                            self.session.open(MessageBox,("Ha ocurrido un error:\nNo hay enlaces para la pelicula que estás intentando ver.\nPrueba otro día."), MessageBox.TYPE_ERROR)
+                            self.session.open(MessageBox,("Ha ocurrido un error:\nNo hay enlaces para la pelicula o capitulo que estás intentando ver.\nPrueba otro día."), MessageBox.TYPE_ERROR)
                             return
                         
                         STREAMS.get_list(LanzaEnlaces)
