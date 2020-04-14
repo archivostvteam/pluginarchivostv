@@ -1788,6 +1788,11 @@ class artvPlaylist(Screen):
                         print er
                         self.session.open(MessageBox,("Ha ocurrido un error:\n" + str(er) + "\nIntentalo de nuevo."), MessageBox.TYPE_ERROR)
                         return
+                        
+                if tipo.find('hdfullBusca') != -1:
+                    self.busquedass = ["Peliculas", "Series"]
+                    Lanzalo = self.session.openWithCallback(self.devuelveBusquedaHDFULL, Busquedas, opciones=self.busquedass)
+                    return
             
             if playlist_url != None:
                 STREAMS.get_list(playlist_url)
@@ -1889,8 +1894,92 @@ class artvPlaylist(Screen):
                     print "Error en BuscandoMegadede: " + str(er)
             else:
                 pass
-        
-    
+    def devuelveBusquedaHDFULL(self, posicion = None):
+        try:
+            if posicion > -1:
+                if posicion == 0:
+                    self.OPT = 0
+                    bs = self.session.openWithCallback(self.BuscandoHDFULL, TecladoVirtualA, title=_('Escribe tu Peli:'), text='')
+                elif posicion == 1:
+                    self.OPT = 1
+                    bs = self.session.openWithCallback(self.BuscandoHDFULL, TecladoVirtualA, title=_('Escribe tu Serie:'), text='')
+                elif posicion == 2:
+                    self.OPT = 2
+                    bs = self.session.openWithCallback(self.BuscandoHDFULL, TecladoVirtualA, title=_('Escribe tu Documental:'), text='')
+                elif posicion == 3:
+                    self.OPT = 3
+                    bs = self.session.openWithCallback(self.BuscandoHDFULL, TecladoVirtualA, title=_('Escribe tu TVShow:'), text='')
+                elif posicion == 4:
+                    return 4
+                    
+                    
+        except Exception as er:
+            print "Error de devuelveBusquedaHDFULL: " + str(er)
+            print "Error de devuelveBusquedaHDFULL: " + str(er)
+            print "Error de devuelveBusquedaHDFULL: " + str(er)
+            
+    def BuscandoHDFULL(self, Texto):
+        if Texto == "":
+            self.session.open(MessageBox,_("Tienes que escribir lo que buscas... cancelando busqueda."), MessageBox.TYPE_INFO)
+            self.close(None)
+        else:
+            from hdfull import Buscar
+            Resultadoo = Texto
+
+            if self.OPT == 0: #Pelis hdfull
+                try:
+                    LanzaXV = Buscar(self, Resultadoo, self.OPT)
+                    if type(LanzaXV) == []:
+                        if LanzaXV[0] == 1:
+                            self.session.open(MessageBox,(str(LanzaXV[1])), MessageBox.TYPE_ERROR)
+                    else:
+                        sURL = LanzaXV
+                        STREAMS.get_list(sURL)
+                        self.update_channellist()
+                except Exception as er:
+                    print "Error en BuscandoHDFULL: " + str(er)
+                    print "Error en BuscandoHDFULL: " + str(er)
+            elif self.OPT == 1: #Series hdfull
+                try:
+                    LanzaXV = Buscar(self, Resultadoo, self.OPT)
+                    if type(LanzaXV) == []:
+                        if LanzaXV[0] == 1:
+                            self.session.open(MessageBox,(str(LanzaXV[1])), MessageBox.TYPE_ERROR)
+                    else:
+                        sURL = LanzaXV
+                        STREAMS.get_list(sURL)
+                        self.update_channellist()
+                except Exception as er:
+                    print "Error en BuscandoMegadede: " + str(er)
+                    print "Error en BuscandoMegadede: " + str(er)
+            elif self.OPT == 2: #Documentales hdfull
+                try:
+                    LanzaXV = Buscar(self, Resultadoo, self.OPT)
+                    if type(LanzaXV) == []:
+                        if LanzaXV[0] == 1:
+                            self.session.open(MessageBox,(str(LanzaXV[1])), MessageBox.TYPE_ERROR)
+                    else:
+                        sURL = LanzaXV
+                        STREAMS.get_list(sURL)
+                        self.update_channellist()
+                except Exception as er:
+                    print "Error en BuscandoMegadede: " + str(er)
+                    print "Error en BuscandoMegadede: " + str(er)
+            elif self.OPT == 3: #TVshows hdfull
+                try:
+                    LanzaXV = Buscar(self, Resultadoo, self.OPT)
+                    if type(LanzaXV) == []:
+                        if LanzaXV[0] == 1:
+                            self.session.open(MessageBox,(str(LanzaXV[1])), MessageBox.TYPE_ERROR)
+                    else:
+                        sURL = LanzaXV
+                        STREAMS.get_list(sURL)
+                        self.update_channellist()
+                except Exception as er:
+                    print "Error en BuscandoMegadede: " + str(er)
+                    print "Error en BuscandoMegadede: " + str(er)
+            else:
+                pass
 
     def myPassInput(self):
         self.passwd_ok = True
