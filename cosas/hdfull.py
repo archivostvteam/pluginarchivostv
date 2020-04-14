@@ -17,7 +17,7 @@ import urllib
 import urlparse
 from enigma import eTimer
 from ArchivostvModulos import Excepcion as Log
-from ArchivostvModulos import debug
+from ArchivostvModulos import debug, CambiaTexto
 
 RUTAPLUGIN = "/usr/lib/enigma2/python/Plugins/Extensions/archivostv/"
 RUTACOOKIE = "/usr/lib/enigma2/python/Plugins/Extensions/archivostv/cosas/cookies.dat"
@@ -50,47 +50,6 @@ def Crea_Archivo(nombreArchivo, nombreLista, nombreChanel, imagen, enlace, imgDe
     Categ = nombreArchivo
     FF = open(Categ, 'w')
     FF.write('<?xml version="1.0" encoding="iso-8859-1"?>\n<items>\n<playlist_name><![CDATA[' + NN + ']]></playlist_name>\n\n')
-    
-def CambiaTexto(texto):
-    NN = texto
-    NN = NN.replace("¡","")
-    NN = NN.replace("¿","")
-    NN = NN.replace("?","")
-    NN = NN.replace(":","")
-    NN = NN.replace("º","")
-    NN = NN.replace("ª","")
-    NN = NN.replace("\"","")
-    NN = NN.replace("\'","")
-    NN = NN.replace("(","")
-    NN = NN.replace(")","")
-    NN = NN.replace("á","a")
-    NN = NN.replace("Á","A")
-    NN = NN.replace("é","e")
-    NN = NN.replace("É","E")
-    NN = NN.replace("í","i")
-    NN = NN.replace("Í","I")
-    NN = NN.replace("ó","o")
-    NN = NN.replace("Ó","O")
-    NN = NN.replace("ú","u")
-    NN = NN.replace("Ú","U")
-    NN = NN.replace("ñ","n")
-    NN = NN.replace("Ñ","N")
-    NN = NN.replace("&ntilde;","n")
-    NN = NN.replace("&quot;","")
-    NN = NN.replace("'","")
-    NN = NN.replace("&#039;","")
-    NN = NN.replace('\xc3\xb1','n')
-    NN = NN.replace('\xc3\x81','A')
-    NN = NN.replace('\xc3\xa1','a')
-    NN = NN.replace('\xc3\x8d','I')
-    NN = NN.replace('\xc3\xad','i')
-    NN = NN.replace('\xc3\x89','E')
-    NN = NN.replace('\xc3\xa9','e')
-    NN = NN.replace('\xc3\x93','O')
-    NN = NN.replace('\xc3\xb3','o')
-    NN = NN.replace('\xc3\x9a','U')
-    NN = NN.replace('\xc3\xba','u')
-    return NN
 
 def load_cookies():
     if os.path.isfile(RUTACOOKIE):

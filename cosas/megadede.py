@@ -10,6 +10,8 @@ import json
 import hashlib
 import Teclado
 from enigma import eTimer
+from ArchivostvModulos import Excepcion as Log
+from ArchivostvModulos import debug, CambiaTexto
 
 RUTAPLUGIN = "/usr/lib/enigma2/python/Plugins/Extensions/archivostv/"
 RUTACOOKIE = "/usr/lib/enigma2/python/Plugins/Extensions/archivostv/cosas/cookies.dat"
@@ -171,9 +173,7 @@ def Recap(self, usuario, contra, deslogeo, item):
             pass
         
     except Exception as er:
-        print "Error: "+ str(er) + " En Recap"
-        print "Error: "+ str(er) + " En Recap"
-        print "Error: "+ str(er) + " En Recap"
+        Log(str(er), "En Recap MEGADEDE")
         return [1, er]
         
 def Recap2(respuesta):
@@ -231,11 +231,9 @@ def Recap2(respuesta):
             print "Login no correcto"
             LogeadoDD = False
             return False
-    except Exception as err:
+    except Exception as er:
         try:
-            print err
-            print err
-            print err
+            Log(str(er), "En Recap2 MEGADEDE")
             
             global LogeadoDD
             global USR
@@ -286,10 +284,8 @@ def Recap2(respuesta):
                 LogeadoDD = False
                 return False
 
-        except Exception as err:
-            print "Error: "+ str(err) + " En Recap2"
-            print "Error: "+ str(err) + " En Recap2"
-            print "Error: "+ str(err) + " En Recap2"
+        except Exception as er:
+            Log(str(er), "En Recap2 MEGADEDE")
 
 def LoginPordede(self, usuario, contra):
     cookiepath = RutaTMP
@@ -338,32 +334,7 @@ def Enlaces1(self, enlace):
 def Enlaces(self, Nam, URLL, THUMB, historial):
     try:
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         ENN = URLL
         IMG = THUMB
 
@@ -463,41 +434,14 @@ def Enlaces(self, Nam, URLL, THUMB, historial):
         return Categ
         
     except Exception as er:
-        print "Error: "+ str(er) + " En Enlaces"
-        print "Error: "+ str(er) + " En Enlaces"
-        print "Error: "+ str(er) + " En Enlaces"
+        Log(str(er), "En Enlaces MEGADEDE")
         return [1, er]
     
 def Capitulos(self, Nam, URLL, THUMB, historial):
     try:
         ArchivoLog = RutaTMP + "Log.txt"
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         ENN = URLL
         IMG = THUMB
 
@@ -561,9 +505,7 @@ def Capitulos(self, Nam, URLL, THUMB, historial):
         return Categ
         
     except Exception as er:
-        print "Error: "+ str(er) + " En Capitulos"
-        print "Error: "+ str(er) + " En Capitulos"
-        print "Error: "+ str(er) + " En Capitulos"
+        Log(str(er), "En Capitulos MEGADEDE")
         return [1, er]
 
 
@@ -573,32 +515,7 @@ def NavegarListas(self, Nam, Pagina):
         global OTRO
         
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         PAG = Pagina
         PG = PAG
         
@@ -635,32 +552,7 @@ def NavegarListas(self, Nam, Pagina):
                 Conteo = Conteo + 1
                 ENLA = enlace
                 NN = titulo
-                NN = NN.replace("¡","")
-                NN = NN.replace("¿","")
-                NN = NN.replace("?","")
-                NN = NN.replace(":","")
-                NN = NN.replace("º","")
-                NN = NN.replace("ª","")
-                NN = NN.replace("\"","")
-                NN = NN.replace("\'","")
-                NN = NN.replace("(","")
-                NN = NN.replace(")","")
-                NN = NN.replace("á","a")
-                NN = NN.replace("Á","A")
-                NN = NN.replace("é","e")
-                NN = NN.replace("É","E")
-                NN = NN.replace("í","i")
-                NN = NN.replace("Í","I")
-                NN = NN.replace("ó","o")
-                NN = NN.replace("Ó","O")
-                NN = NN.replace("ú","u")
-                NN = NN.replace("Ú","U")
-                NN = NN.replace("ñ","n")
-                NN = NN.replace("Ñ","N")
-                NN = NN.replace("&ntilde;","n")
-                NN = NN.replace("&quot;","")
-                NN = NN.replace("'","")
-                NN = NN.replace("&#039;","")
+                NN = CambiaTexto(NN)
                 IMAG = imagen
                 
                 ImgDefinitiva = ObtenImagenes(self, IMAG)
@@ -699,9 +591,7 @@ def NavegarListas(self, Nam, Pagina):
             return Categ
                 
     except Exception as er:
-        print "Error: "+ str(er) + " En NavegarListas"
-        print "Error: "+ str(er) + " En NavegarListas"
-        print "Error: "+ str(er) + " En NavegarListas"
+        Log(str(er), "En NavegarListas MEGADEDE")
         return [1, er]
         
 def NavegarEstrenos(self, Nam, Pagina):
@@ -710,32 +600,7 @@ def NavegarEstrenos(self, Nam, Pagina):
         global OTRO
         
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         PAG = Pagina
         PG = PAG
         
@@ -772,32 +637,7 @@ def NavegarEstrenos(self, Nam, Pagina):
                 Conteo = Conteo + 1
                 ENLA = enlace
                 NN = titulo
-                NN = NN.replace("¡","")
-                NN = NN.replace("¿","")
-                NN = NN.replace("?","")
-                NN = NN.replace(":","")
-                NN = NN.replace("º","")
-                NN = NN.replace("ª","")
-                NN = NN.replace("\"","")
-                NN = NN.replace("\'","")
-                NN = NN.replace("(","")
-                NN = NN.replace(")","")
-                NN = NN.replace("á","a")
-                NN = NN.replace("Á","A")
-                NN = NN.replace("é","e")
-                NN = NN.replace("É","E")
-                NN = NN.replace("í","i")
-                NN = NN.replace("Í","I")
-                NN = NN.replace("ó","o")
-                NN = NN.replace("Ó","O")
-                NN = NN.replace("ú","u")
-                NN = NN.replace("Ú","U")
-                NN = NN.replace("ñ","n")
-                NN = NN.replace("Ñ","N")
-                NN = NN.replace("&ntilde;","n")
-                NN = NN.replace("&quot;","")
-                NN = NN.replace("'","")
-                NN = NN.replace("&#039;","")
+                NN = CambiaTexto(NN)
                 IMAG = imagen
                 
                 ImgDefinitiva = ObtenImagenes(self, IMAG)
@@ -839,9 +679,7 @@ def NavegarEstrenos(self, Nam, Pagina):
             return Categ
             
     except Exception as er:
-        print "Error: "+ str(er) + " En NavegarEstrenos"
-        print "Error: "+ str(er) + " En NavegarEstrenos"
-        print "Error: "+ str(er) + " En NavegarEstrenos"
+        Log(str(er), "En NavegarEstrenos MEGADEDE")
         return [1, er]
     
 def NavegarPeliculas(self, Nam, Pagina):
@@ -850,32 +688,7 @@ def NavegarPeliculas(self, Nam, Pagina):
         global OTRO
         
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         PAG = Pagina
         PG = PAG
         
@@ -912,32 +725,7 @@ def NavegarPeliculas(self, Nam, Pagina):
                 Conteo = Conteo + 1
                 ENLA = enlace
                 NN = titulo
-                NN = NN.replace("¡","")
-                NN = NN.replace("¿","")
-                NN = NN.replace("?","")
-                NN = NN.replace(":","")
-                NN = NN.replace("º","")
-                NN = NN.replace("ª","")
-                NN = NN.replace("\"","")
-                NN = NN.replace("\'","")
-                NN = NN.replace("(","")
-                NN = NN.replace(")","")
-                NN = NN.replace("á","a")
-                NN = NN.replace("Á","A")
-                NN = NN.replace("é","e")
-                NN = NN.replace("É","E")
-                NN = NN.replace("í","i")
-                NN = NN.replace("Í","I")
-                NN = NN.replace("ó","o")
-                NN = NN.replace("Ó","O")
-                NN = NN.replace("ú","u")
-                NN = NN.replace("Ú","U")
-                NN = NN.replace("ñ","n")
-                NN = NN.replace("Ñ","N")
-                NN = NN.replace("&ntilde;","n")
-                NN = NN.replace("&quot;","")
-                NN = NN.replace("'","")
-                NN = NN.replace("&#039;","")
+                NN = CambiaTexto(NN)
                 IMAG = imagen
                 
                 ImgDefinitiva = ObtenImagenes(self, IMAG)
@@ -976,9 +764,7 @@ def NavegarPeliculas(self, Nam, Pagina):
             return Categ
                 
     except Exception as er:
-        print "Error: "+ str(er) + " En NavegarPeliculas"
-        print "Error: "+ str(er) + " En NavegarPeliculas"
-        print "Error: "+ str(er) + " En NavegarPeliculas"
+        Log(str(er), "En NavegarPeliculas MEGADEDE")
         return [1, er]
         
 def NavegarSeries(self, Nam, Pagina):
@@ -986,32 +772,7 @@ def NavegarSeries(self, Nam, Pagina):
         global OTRO
         
         NN = Nam
-        NN = NN.replace("¡","")
-        NN = NN.replace("¿","")
-        NN = NN.replace("?","")
-        NN = NN.replace(":","")
-        NN = NN.replace("º","")
-        NN = NN.replace("ª","")
-        NN = NN.replace("\"","")
-        NN = NN.replace("\'","")
-        NN = NN.replace("(","")
-        NN = NN.replace(")","")
-        NN = NN.replace("á","a")
-        NN = NN.replace("Á","A")
-        NN = NN.replace("é","e")
-        NN = NN.replace("É","E")
-        NN = NN.replace("í","i")
-        NN = NN.replace("Í","I")
-        NN = NN.replace("ó","o")
-        NN = NN.replace("Ó","O")
-        NN = NN.replace("ú","u")
-        NN = NN.replace("Ú","U")
-        NN = NN.replace("ñ","n")
-        NN = NN.replace("Ñ","N")
-        NN = NN.replace("&ntilde;","n")
-        NN = NN.replace("&quot;","")
-        NN = NN.replace("'","")
-        NN = NN.replace("&#039;","")
+        NN = CambiaTexto(NN)
         PAG = Pagina
         PG = PAG
         Categ = RutaTMP + NN + str(PG) + ".xml"
@@ -1047,32 +808,7 @@ def NavegarSeries(self, Nam, Pagina):
                 Conteo = Conteo + 1
                 ENLA = enlace
                 NN = titulo
-                NN = NN.replace("¡","")
-                NN = NN.replace("¿","")
-                NN = NN.replace("?","")
-                NN = NN.replace(":","")
-                NN = NN.replace("º","")
-                NN = NN.replace("ª","")
-                NN = NN.replace("\"","")
-                NN = NN.replace("\'","")
-                NN = NN.replace("(","")
-                NN = NN.replace(")","")
-                NN = NN.replace("á","a")
-                NN = NN.replace("Á","A")
-                NN = NN.replace("é","e")
-                NN = NN.replace("É","E")
-                NN = NN.replace("í","i")
-                NN = NN.replace("Í","I")
-                NN = NN.replace("ó","o")
-                NN = NN.replace("Ó","O")
-                NN = NN.replace("ú","u")
-                NN = NN.replace("Ú","U")
-                NN = NN.replace("ñ","n")
-                NN = NN.replace("Ñ","N")
-                NN = NN.replace("&ntilde;","n")
-                NN = NN.replace("&quot;","")
-                NN = NN.replace("'","")
-                NN = NN.replace("&#039;","")
+                NN = CambiaTexto(NN)
                 IMAG = imagen
                 ImgDefinitiva = ObtenImagenes(self, IMAG)
 
@@ -1112,9 +848,7 @@ def NavegarSeries(self, Nam, Pagina):
             return Categ
             
     except Exception as er:
-        print "Error: "+ str(er) + " En NavegarSeries"
-        print "Error: "+ str(er) + " En NavegarSeries"
-        print "Error: "+ str(er) + " En NavegarSeries"
+        Log(str(er), "En NavegarSeries MEGADEDE")
         return [1, er]
         
 def Buscar(self, Nombre, Tipo):
@@ -1242,8 +976,7 @@ def Buscar(self, Nombre, Tipo):
             
         return Categ
     except Exception as er:
-        print "Error megadede en Busca: " + str(er)
-        print "Error megadede en Busca: " + str(er)
+        Log(str(er), "En Buscar MEGADEDE")
         return [1, er]
         
 def ObtenImagenes(self, enlace):
@@ -1265,10 +998,8 @@ def ObtenImagenes(self, enlace):
         
         return self.picfile
         
-    except Exception as err:
-        print err
-        print err
-        print err
+    except Exception as er:
+        Log(str(er), "En ObtenImagenes MEGADEDE")
         if os.path.isfile(self.picfile):
             try:
                 os.remove(self.picfile)
