@@ -20,7 +20,7 @@ from ArchivostvModulos import Excepcion as Log
 from ArchivostvModulos import debug, CambiaTexto
 
 RUTAPLUGIN = "/usr/lib/enigma2/python/Plugins/Extensions/archivostv/"
-RUTACOOKIE = "/usr/lib/enigma2/python/Plugins/Extensions/archivostv/cosas/cookies.dat"
+RUTACOOKIE = "/usr/lib/enigma2/python/Plugins/Extensions/archivostv/cookies/cookieshd.dat"
 RutaTMP = "/tmp/archivostv/"
 user_agent_default = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
 
