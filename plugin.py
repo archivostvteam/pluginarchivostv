@@ -2116,7 +2116,10 @@ class artvplayer(Screen, InfoBarBase, IPTVInfoBarShowHide, InfoBarSeek, InfoBarA
         else:
             frt = ''
             self.vod_entry = STREAMS.iptv_list[STREAMS.list_index]
-            if self.vod_entry[5].find('megadede') != -1 or self.vod_entry[5].find('hdfull') != -1 or self.vod_entry[5].find('vidoza') != -1 or self.vod_entry[5].find('gamovideo') != -1 or self.vod_entry[5].find('uptobox') != -1:
+            print "Este es el index:" + str(self.vod_entry[5])
+            print "Este es el index:" + str(self.vod_entry[5])
+            print "Este es el index:" + str(self.vod_entry[5])
+            if self.vod_entry[5].find('megadede') != -1 or self.vod_entry[5].find('hdfull') != -1 or self.vod_entry[5].find('vidoza') != -1 or self.vod_entry[5].find('gamovideo') != -1 or self.vod_entry[5].find('uptobox') != -1 or self.vod_entry[5].find('clipwatching') != -1 or self.vod_entry[5].find('vidtodo') != -1 or self.vod_entry[5].find('vidia') != -1 or self.vod_entry[5].find('filescdn') != -1:
                 global URLFINAL
                 self.vod_url = URLFINAL
             else:
