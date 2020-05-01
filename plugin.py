@@ -67,7 +67,8 @@ Servidor = 0
 logeadoplusdede = 0
 logeoplusdede = 0
 CarpetaTMP = "/tmp/archivostv/"
-VersionActual = 109
+VersionActual = 112
+VersionTexto = "1.1.2"
 usuariopor = "florin2016"
 contrasenapor = "florin2016"
 user_agent_default = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
@@ -460,6 +461,7 @@ except Exception as ex:
 from Tools.BoundFunction import boundFunction
 PLUGIN_PATH = '/usr/lib/enigma2/python/Plugins/Extensions/archivostv/cosas'
 loadSkin(PLUGIN_PATH + '/ArchivostvSkin.xml')
+
 VERSION = VersionActual
 print '-->%d<----' % VERSION
 HW_INFO = {}
@@ -833,7 +835,6 @@ def Start_iptv_palyer(session, **kwargs):
 
 
 class artvIPTVplayer(Screen, InfoBarBase, IPTVInfoBarShowHide, InfoBarAudioSelection, InfoBarSubtitleSupport):
-
     def __init__(self, session):
         Screen.__init__(self, session)
         InfoBarBase.__init__(self, steal_current_service=True)
@@ -1065,6 +1066,88 @@ def channelEntryIPTVplaylist(entry):
 class artvPlaylist(Screen):
 
     def __init__(self, session):
+        size_w = getDesktop(0).size().width()
+        size_h = getDesktop(0).size().height()
+        
+        size_w = getDesktop(0).size().width()
+        size_h = getDesktop(0).size().height()
+        
+        if size_w == 1920:
+            self.textsize = 20
+            self.x = 700
+            self.y = 500
+            self.skin = "<screen name=\"artvPlaylist\" position=\"0,0\" size=\"" + str(size_w) + "," + str(size_h) + "\" backgroundColor=\"#41000000\" flags=\"wfNoBorder\" title=\"ArchivosTV\">  \
+                <ePixmap position=\"0, 0\" size=\"1920,1080\" zPosition=\"1\" transparent=\"0\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/menu-bg-1920.png\" /> \
+                <widget name=\"feedlist\" position=\"90,129\" size=\"1100,470\" foregroundColorSelected=\"#e1df42\" backgroundColor=\"un41000000\" foregroundColor=\"white\" backgroundColorSelected=\"#41000000\" selectionPixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barrahd.png\" itemHeight=\"57\" enableWrapAround=\"1\" zPosition=\"3\" scrollbarMode=\"showOnDemand\" transparent=\"1\" /> \
+                <widget backgroundColor=\"un41000000\" foregroundColor=\"white\" position=\"90,650\" size=\"1100,214\" name=\"description\" font=\"Regular; 26\" zPosition=\"2\" transparent=\"1\" text=\"AAAAA\" /> \
+                <widget backgroundColor=\"un41000000\" foregroundColor=\"#6ba4c9\" position=\"130,55\" size=\"1055,60\" name=\"playlist\" zPosition=\"3\" font=\"Regular;" + str(self.textsize) + "\" transparent=\"1\" /> \
+                <widget name=\"time\" position=\"1633,927\" size=\"150,60\" font=\"Regular; 48\" foregroundColor=\"white\" backgroundColor=\"un41000000\" transparent=\"1\" halign=\"left\" zPosition=\"3\" valign=\"center\" /> \
+                <ePixmap name=\"\" position=\"87,48\" size=\"1100,64\" zPosition=\"2\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barraplaylisthd.png\" transparent=\"1\" /> \
+                <eLabel name=\"\" position=\"1220,920\" size=\"400,60\" text=\"Archivostv-Team 0.0.1\" foregroundColor=\"unffff00\" font=\"Regular; 48\" halign=\"center\" transparent=\"1\" zPosition=\"3\" /> \
+                <widget name=\"poster\" position=\"1286,164\" size=\"" + str(self.x) + "," + str(self.y) + "\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/clearhd.png\" zPosition=\"3\" transparent=\"1\" alphatest=\"blend\" /> \
+                <ePixmap position=\"90,928\" size=\"40,40\" zPosition=\"3\" transparent=\"1\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/key_redhd.png\" /> \
+                <widget name=\"pixmap2a\" position=\"230,928\" size=\"40,40\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/menoshd.png\" zPosition=\"3\" transparent=\"1\" alphatest=\"blend\" /> \
+                <ePixmap name=\"\" position=\"1195,916\" size=\"600,60\" zPosition=\"2\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barralogohd.png\" transparent=\"0\" /> \
+                <eLabel position=\"135,934\" zPosition=\"4\" size=\"80,28\" halign=\"left\" font=\"Regular; 22\" transparent=\"1\" foregroundColor=\"unff0000\" backgroundColor=\"un41000000\" text=\"INICIO\" valign=\"center\" /> \
+                <widget name=\"chminus\" position=\"275,934\" zPosition=\"4\" size=\"165,28\" halign=\"left\" font=\"Regular; 22\" transparent=\"1\" foregroundColor=\"white\" backgroundColor=\"un41000000\" valign=\"center\" text=\"AAAA\" /> \
+                <ePixmap position=\"450,928\" size=\"40,40\" zPosition=\"4\" transparent=\"1\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/stophd.png\" /> \
+                <widget backgroundColor=\"background\" font=\"Regular; 38\" halign=\"right\" position=\"1426,87\" render=\"Label\" size=\"210,40\" source=\"global.CurrentTime\" transparent=\"1\" zPosition=\"3\"> \
+                 <convert type=\"ClockToText\">Format:%d.%m.%Y</convert> \
+                </widget> \
+                </screen>"
+
+        elif size_w == 1280:
+            self.textsize = 18
+            self.fecha = 30
+            self.reloj = 30
+            self.x = 350
+            self.y = 450
+            
+            self.skin = "<screen name=\"artvPlaylist\" position=\"0,0\" size=\"" + str(size_w) + "," + str(size_h) + "\" backgroundColor=\"#41000000\" flags=\"wfNoBorder\" title=\"ArchivosTV\">  \
+                <ePixmap position=\"0, 0\" size=\"1280,720\" zPosition=\"1\" transparent=\"0\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/menu-bg.png\" /> \
+                <widget name=\"feedlist\" position=\"65,130\" size=\"650,300\" foregroundColorSelected=\"#e1df42\" backgroundColor=\"un41000000\" foregroundColor=\"white\" backgroundColorSelected=\"#41000000\" selectionPixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barrahd.png\" itemHeight=\"30\" enableWrapAround=\"0\" zPosition=\"3\" scrollbarMode=\"showOnDemand\" transparent=\"1\" /> \
+                <widget backgroundColor=\"un41000000\" foregroundColor=\"white\" position=\"65,450\" size=\"650,150\" name=\"description\" font=\"Regular; 18\" zPosition=\"2\" transparent=\"1\" text=\"AAAAA\" /> \
+                <widget backgroundColor=\"un41000000\" foregroundColor=\"#6ba4c9\" position=\"105,55\" size=\"1055,60\" name=\"playlist\" zPosition=\"3\" font=\"Regular; 46\" transparent=\"1\" /> \
+                <widget name=\"time\" position=\"930,595\" size=\"150,60\" font=\"Regular; " + str(self.reloj) + "\" foregroundColor=\"white\" backgroundColor=\"un41000000\" transparent=\"1\" halign=\"left\" zPosition=\"3\" valign=\"center\" /> \
+                <ePixmap name=\"\" position=\"65,48\" size=\"1165,64\" zPosition=\"2\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barraplaylisthd.png\" transparent=\"1\" /> \
+                <eLabel name=\"\" position=\"875,65\" size=\"400,60\" text=\"Archivostv-Team " + VersionTexto + "\" foregroundColor=\"unffff00\" font=\"Regular; 28\" halign=\"center\" transparent=\"1\" zPosition=\"3\" /> \
+                <widget name=\"poster\" position=\"875,130\" size=\"" + str(self.x) + "," + str(self.y) + "\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/clearhd.png\" zPosition=\"3\" transparent=\"1\" alphatest=\"blend\" /> \
+                <ePixmap position=\"65,612\" size=\"40,40\" zPosition=\"3\" transparent=\"1\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/key_redhd.png\" /> \
+                <widget name=\"pixmap2a\" position=\"230,728\" size=\"40,40\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/menoshd.png\" zPosition=\"3\" transparent=\"1\" alphatest=\"blend\" /> \
+                <ePixmap name=\"\" position=\"875,590\" size=\"350,60\" zPosition=\"2\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barralogohd.png\" transparent=\"0\" /> \
+                <eLabel position=\"110,615\" zPosition=\"4\" size=\"80,28\" halign=\"left\" font=\"Regular; 14\" transparent=\"1\" foregroundColor=\"unff0000\" backgroundColor=\"un41000000\" text=\"INICIO\" valign=\"center\" /> \
+                <widget name=\"chminus\" position=\"165,615\" zPosition=\"4\" size=\"165,28\" halign=\"left\" font=\"Regular; 14\" transparent=\"1\" foregroundColor=\"white\" backgroundColor=\"un41000000\" valign=\"center\" text=\"AAAA\" /> \
+                <widget backgroundColor=\"background\" font=\"Regular; " + str(self.fecha) + "\" halign=\"right\" position=\"960,606\" render=\"Label\" size=\"210,40\" source=\"global.CurrentTime\" transparent=\"1\" zPosition=\"3\"> \
+                 <convert type=\"ClockToText\">Format:%d.%m.%Y</convert> \
+                </widget> \
+                </screen>"
+            #<ePixmap position=\"450,615\" size=\"40,40\" zPosition=\"4\" transparent=\"1\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/stophd.png\" /> \
+        else:
+            if size_w < 1280:
+                self.textsize = 18
+                self.fecha = 30
+                self.reloj = 30
+                self.x = 350
+                self.y = 450
+                self.skin = "<screen name=\"artvPlaylist\" position=\"0,0\" size=\"" + str(size_w) + "," + str(size_h) + "\" backgroundColor=\"#41000000\" flags=\"wfNoBorder\" title=\"ArchivosTV\">  \
+                    <ePixmap position=\"0, 0\" size=\"1280,720\" zPosition=\"1\" transparent=\"0\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/menu-bg.png\" /> \
+                    <widget name=\"feedlist\" position=\"65,130\" size=\"650,300\" foregroundColorSelected=\"#e1df42\" backgroundColor=\"un41000000\" foregroundColor=\"white\" backgroundColorSelected=\"#41000000\" selectionPixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barrahd.png\" itemHeight=\"30\" enableWrapAround=\"0\" zPosition=\"3\" scrollbarMode=\"showOnDemand\" transparent=\"1\" /> \
+                    <widget backgroundColor=\"un41000000\" foregroundColor=\"white\" position=\"65,450\" size=\"650,150\" name=\"description\" font=\"Regular; 18\" zPosition=\"2\" transparent=\"1\" text=\"AAAAA\" /> \
+                    <widget backgroundColor=\"un41000000\" foregroundColor=\"#6ba4c9\" position=\"105,55\" size=\"1055,60\" name=\"playlist\" zPosition=\"3\" font=\"Regular; 46\" transparent=\"1\" /> \
+                    <widget name=\"time\" position=\"930,595\" size=\"150,60\" font=\"Regular; " + str(self.reloj) + "\" foregroundColor=\"white\" backgroundColor=\"un41000000\" transparent=\"1\" halign=\"left\" zPosition=\"3\" valign=\"center\" /> \
+                    <ePixmap name=\"\" position=\"65,48\" size=\"1165,64\" zPosition=\"2\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barraplaylisthd.png\" transparent=\"1\" /> \
+                    <eLabel name=\"\" position=\"875,65\" size=\"400,60\" text=\"Archivostv-Team " + VersionTexto + "\" foregroundColor=\"unffff00\" font=\"Regular; 28\" halign=\"center\" transparent=\"1\" zPosition=\"3\" /> \
+                    <widget name=\"poster\" position=\"875,130\" size=\"" + str(self.x) + "," + str(self.y) + "\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/clearhd.png\" zPosition=\"3\" transparent=\"1\" alphatest=\"blend\" /> \
+                    <ePixmap position=\"65,612\" size=\"40,40\" zPosition=\"3\" transparent=\"1\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/key_redhd.png\" /> \
+                    <widget name=\"pixmap2a\" position=\"230,728\" size=\"40,40\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/menoshd.png\" zPosition=\"3\" transparent=\"1\" alphatest=\"blend\" /> \
+                    <ePixmap name=\"\" position=\"875,590\" size=\"350,60\" zPosition=\"2\" alphatest=\"blend\" pixmap=\"/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barralogohd.png\" transparent=\"0\" /> \
+                    <eLabel position=\"110,615\" zPosition=\"4\" size=\"80,28\" halign=\"left\" font=\"Regular; 14\" transparent=\"1\" foregroundColor=\"unff0000\" backgroundColor=\"un41000000\" text=\"INICIO\" valign=\"center\" /> \
+                    <widget name=\"chminus\" position=\"165,615\" zPosition=\"4\" size=\"165,28\" halign=\"left\" font=\"Regular; 14\" transparent=\"1\" foregroundColor=\"white\" backgroundColor=\"un41000000\" valign=\"center\" text=\"AAAA\" /> \
+                    <widget backgroundColor=\"background\" font=\"Regular; " + str(self.fecha) + "\" halign=\"right\" position=\"960,606\" render=\"Label\" size=\"210,40\" source=\"global.CurrentTime\" transparent=\"1\" zPosition=\"3\"> \
+                     <convert type=\"ClockToText\">Format:%d.%m.%Y</convert> \
+                    </widget> \
+                    </screen>"
+    
         Screen.__init__(self, session)
         self.session = session
         self.channel_list = STREAMS.iptv_list
@@ -1270,7 +1353,8 @@ class artvPlaylist(Screen):
             x = self['poster'].instance.size().width()
             y = self['poster'].instance.size().height()
             
-            y = 500
+            x = self.x
+            y = self.y
 
             picture = self.picfile
             picload = self.picload
@@ -2116,7 +2200,8 @@ class artvplayer(Screen, InfoBarBase, IPTVInfoBarShowHide, InfoBarSeek, InfoBarA
         else:
             frt = ''
             self.vod_entry = STREAMS.iptv_list[STREAMS.list_index]
-            if self.vod_entry[5].find('megadede') != -1 or self.vod_entry[5].find('hdfull') != -1 or self.vod_entry[5].find('vidoza') != -1 or self.vod_entry[5].find('gamovideo') != -1 or self.vod_entry[5].find('uptobox') != -1 or self.vod_entry[5].find('clipwatching') != -1 or self.vod_entry[5].find('vidtodo') != -1 or self.vod_entry[5].find('vidia') != -1 or self.vod_entry[5].find('filescdn') != -1:
+            if self.vod_entry[5].find('megadede') != -1 or self.vod_entry[5].find('hdfull') != -1 or self.vod_entry[5].find('vidoza') != -1 or self.vod_entry[5].find('gamovideo') != -1 or self.vod_entry[5].find('uptobox') != -1 or self.vod_entry[5].find('clipwatching') != -1 or self.vod_entry[5].find('vidtodo') != -1 or self.vod_entry[5].find('vidia') != -1 or self.vod_entry[5].find('filescdn') != -1 \
+            or self.vod_entry[5].find('upstream') != -1:
                 global URLFINAL
                 self.vod_url = URLFINAL
             else:
@@ -3144,6 +3229,7 @@ class Busquedas(Screen):
         
         self['actions'] = HelpableActionMap(self, 'SelectorCalidad', {'back': self.exit,
          'ok': self.ok}, -1)
+
 
         self['lista'] = MenuList(opciones)
 
