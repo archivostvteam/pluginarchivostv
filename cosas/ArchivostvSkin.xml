@@ -2,29 +2,6 @@
 <!--  Skin: nStreamPlayer HD -->
 <skin>
 
-
-<screen name="artvPlaylist" position="0,0" size="1920,1080" backgroundColor="#41000000" flags="wfNoBorder" title="Playlist">
-<ePixmap position="0, 0" size="1920,1080" zPosition="1" transparent="0" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/menu-bg.png" />
-<widget name="feedlist" position="90,129" size="1100,470" foregroundColorSelected="#e1df42" backgroundColor="un41000000" foregroundColor="white" backgroundColorSelected="#41000000" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barrahd.png" itemHeight="57" enableWrapAround="1" zPosition="3" scrollbarMode="showOnDemand" transparent="1" />
-<widget backgroundColor="un41000000" foregroundColor="white" position="90,650" size="1100,214" name="description" font="Regular; 26" zPosition="2" transparent="1" text="AAAAA" />
-<widget backgroundColor="un41000000" foregroundColor="#6ba4c9" position="130,55" size="1100,60" name="playlist" zPosition="3" font="Regular;46" transparent="1" />
-<widget name="time" position="1633,927" size="150,60" font="Regular; 48" foregroundColor="white" backgroundColor="un41000000" transparent="1" halign="left" zPosition="3" valign="center" />
-<ePixmap name="" position="87,48" size="1200,64" zPosition="2" alphatest="blend" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barraplaylisthd.png" transparent="1" />
-<eLabel name="" position="1221,927" size="400,60" text="Archivostv-Team 0.0.1" foregroundColor="unffff00" font="Regular; 48" halign="center" transparent="1" zPosition="3" />
-<widget name="poster" position="1286,164" size="500,700" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/clearhd.png" zPosition="3" transparent="1" alphatest="blend" />
-<ePixmap position="90,928" size="40,40" zPosition="3" transparent="1" alphatest="blend" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/key_redhd.png" />
-<widget name="pixmap2a" position="230,928" size="40,40" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/menoshd.png" zPosition="3" transparent="1" alphatest="blend" />
-<ePixmap name="" position="1195,916" size="600,60" zPosition="2" alphatest="blend" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/barralogohd.png" transparent="0" />
-<eLabel position="135,934" zPosition="4" size="80,28" halign="left" font="Regular; 22" transparent="1" foregroundColor="unff0000" backgroundColor="un41000000" text="INICIO" valign="center" />
-<widget name="chminus" position="275,934" zPosition="4" size="165,28" halign="left" font="Regular; 22" transparent="1" foregroundColor="white" backgroundColor="un41000000" valign="center" text="AAAA" />
-<ePixmap position="450,928" size="40,40" zPosition="4" transparent="1" alphatest="blend" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/stophd.png" />
-<widget backgroundColor="background" font="Regular; 38" halign="right" position="1426,87" render="Label" size="210,40" source="global.CurrentTime" transparent="1" zPosition="3">
- <convert type="ClockToText">Format:%d.%m.%Y</convert>
-</widget>
-</screen>
-
-
-
 <!--<screen name="artvIPTVplayer" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder" title="IPTVplayer">
 <ePixmap position="0,880" size="1920,200" zPosition="1" transparent="0" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/archivostv/img/infobarhd.png" />
 <widget position="240,891" halign="center" size="96,42" foregroundColor="#ffffff" zPosition="2" name="channel_number" transparent="1" font="Regular; 28" />
