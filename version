@@ -1,5 +1,3 @@
-version=112
+version=113
 
-@|@| Mejoras en el Skin y soporte a mas resoluciones |@|@
-@@@@ Agregado nuevo servidor vidia.tv @@@@
-=@=@ Añadido una funcion de busqueda en hdfull, igual que megadede @=@=
+@|@| Arreglar servidor hdfull.lv
