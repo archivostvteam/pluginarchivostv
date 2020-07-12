@@ -70,7 +70,7 @@ def save_cookies():
     debug("Guardando las cookies")
 
 def Version():
-    V = 100
+    V = 101
     return V
 
 def CompruebaLoginHD(self):
