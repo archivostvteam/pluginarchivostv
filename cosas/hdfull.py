@@ -34,7 +34,7 @@ Mediaitem = ""
 Sesion = ""
 
 OTRO = 0
-host = 'https://hdfull.io'
+host = 'https://hdfull.lv'
 
 cj = cookielib.MozillaCookieJar()
 
@@ -75,14 +75,14 @@ def Version():
 
 def CompruebaLoginHD(self):
     load_cookies()
-    url = 'https://hdfull.io/'
+    url = 'https://hdfull.lv/'
     req = urllib2.Request(url)
     req.add_header('User-Agent', user_agent_default)
     Abrir = OP(req, timeout=20)
     data = Abrir.read()
     Abrir.close()
     
-    if data.find('<a href="https://hdfull.io/user/plugine2" class="tour-join2 join">Bienvenido plugine2</a>') != -1:
+    if data.find('<a href="https://hdfull.lv/user/plugine2" class="tour-join2 join">Bienvenido plugine2</a>') != -1:
         #Lo encuentra, entonces estamos logeados.
         return True
     else:
@@ -108,7 +108,7 @@ def Logear(self, usuario, contra):
         USR = LOGIN
         PSW = PASSWORD
         
-        url_origen = 'https://hdfull.io/'
+        url_origen = 'https://hdfull.lv/'
         req = urllib2.Request(url_origen)
         req.add_header('User-Agent', user_agent_default)
         Abrir = OP(req, timeout=20)
@@ -122,12 +122,12 @@ def Logear(self, usuario, contra):
         NameToken = GetName[0]
         Token = GetToken[0]
         
-        url = 'https://hdfull.io/'
+        url = 'https://hdfull.lv/'
         post = str(NameToken) + '=' + str(Token) + '&username=' + USR + '&password=' + PSW + '&action=login'
         
         req = urllib2.Request(url)
         req.add_header('User-Agent', user_agent_default)
-        req.add_header('Referer', 'https://hdfull.io/')
+        req.add_header('Referer', 'https://hdfull.lv/')
         Abrir = OP(req, data=post)
         data = Abrir.read()
         Abrir.close()
@@ -153,12 +153,12 @@ def NavegarEstrenos(self, Nam, Pagina):
         
         Categ = RutaTMP + NN + str(PG) + ".xml"
         
-        url = 'https://hdfull.io/peliculas-estreno'
+        url = 'https://hdfull.lv/peliculas-estreno'
         PAG = int(PAG)
         
         req = urllib2.Request(url)
         req.add_header('User-Agent',user_agent_default)
-        req.add_header('Referer','https://hdfull.io/')
+        req.add_header('Referer','https://hdfull.lv/')
         Abrir = OP(req)
         data = Abrir.read()
         Abrir.close()
@@ -414,7 +414,7 @@ def obfs(data, key, n=126):
 def agrupa_datos(url, post=None):
     req = urllib2.Request(url)
     req.add_header('User-Agent',user_agent_default)
-    req.add_header('Referer','https://hdfull.io/')
+    req.add_header('Referer','https://hdfull.lv/')
     Abrir = OP(req)
     data = Abrir.read()
     Abrir.close()
@@ -466,12 +466,12 @@ def NavegarSeries(self, Nam, Pagina):
         
         Categ = RutaTMP + NN + str(PG) + ".xml"
         
-        url = 'https://hdfull.io/series'
+        url = 'https://hdfull.lv/series'
         PAG = int(PAG)
         
         req = urllib2.Request(url)
         req.add_header('User-Agent',user_agent_default)
-        req.add_header('Referer','https://hdfull.io/')
+        req.add_header('Referer','https://hdfull.lv/')
         Abrir = OP(req)
         data = Abrir.read()
         Abrir.close()
@@ -541,7 +541,7 @@ def NavegarAZ(self, Nam, URLL = "", Pagina = "", historial = ""):
         url = URLL
         req = urllib2.Request(url)
         req.add_header('User-Agent',user_agent_default)
-        req.add_header('Referer','https://hdfull.io/')
+        req.add_header('Referer','https://hdfull.lv/')
         Abrir = OP(req)
         data = Abrir.read()
         Abrir.close()
@@ -609,7 +609,7 @@ def Capitulos(self, Nam, URLL = "", THUMB = "", historial = "", temporada = ""):
         Categ = RutaTMP + NN.encode('utf8') + "_1.xml"
         
         
-        url = 'https://hdfull.io/a/episodes'
+        url = 'https://hdfull.lv/a/episodes'
         post = "action=season&start=0&limit=0&show=%s&season=%s" % (idd, temporada)
         req = urllib2.Request(url)
         req.add_header('User-Agent',user_agent_default)
@@ -738,7 +738,7 @@ def Buscar(self, Nombre, Tipo):
         Name = Name.replace("&#39;","'")
         Name = Name.replace(" ", "+")
         
-        url_origen = 'https://hdfull.io/'
+        url_origen = 'https://hdfull.lv/'
         req = urllib2.Request(url_origen)
         req.add_header('User-Agent', user_agent_default)
         Abrir = OP(req, timeout=20)
@@ -752,11 +752,11 @@ def Buscar(self, Nombre, Tipo):
         Token = GetToken[0]
         
         if OPT == 0: # Pelis
-            url = 'https://hdfull.io/buscar'
+            url = 'https://hdfull.lv/buscar'
             post = str(NameToken) + '=' + str(Token) + "&menu=search&query=" + Name
             req = urllib2.Request(url)
             req.add_header('User-Agent', user_agent_default)
-            req.add_header('Referer', 'https://hdfull.io/')
+            req.add_header('Referer', 'https://hdfull.lv/')
             Abrir = OP(req, data=post)
             data = Abrir.read()
             Abrir.close()
@@ -808,11 +808,11 @@ def Buscar(self, Nombre, Tipo):
             return Categ
             
         elif OPT == 1: # Series
-            url = 'https://hdfull.io/buscar'
+            url = 'https://hdfull.lv/buscar'
             post = str(NameToken) + '=' + str(Token) + "&menu=search&query=" + Name
             req = urllib2.Request(url)
             req.add_header('User-Agent', user_agent_default)
-            req.add_header('Referer', 'https://hdfull.io/')
+            req.add_header('Referer', 'https://hdfull.lv/')
             Abrir = OP(req, data=post)
             data = Abrir.read()
             Abrir.close()
